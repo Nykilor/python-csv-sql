@@ -6,3 +6,7 @@ How to run:
 2. `make run` - Will run the project in your browser
 
 venv python version 3.9.6
+
+![Screenshot 2024-09-06 at 16 05 34](https://github.com/user-attachments/assets/b74751be-7f1a-4ab5-a98b-5dafffc05437)
+
+![Screenshot 2024-09-06 at 16 05 46](https://github.com/user-attachments/assets/d5870302-76b4-4d24-b064-dfb327dd8fab)
