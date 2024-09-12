@@ -1,0 +1,328 @@
+Index: provider/AddressDataProvider.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pandas\nimport sqlalchemy\n\n\nclass AddressDataProvider:\n    COLUMN_ID = 'address_id'\n    COLUMN_ADDRESS = 'address'\n    COLUMN_ADDRESS2 = 'address2'\n    COLUMN_DISTRICT = 'district'\n    COLUMN_CITY = 'city'\n    COLUMN_POSTAL_CODE = 'postal_code'\n    COLUMN_PHONE = 'phone'\n    COLUMN_LOCATION = 'location'\n    COLUMN_LAST_UPDATE = 'last_update'\n\n    def __init__(\n            self\n    ):\n        engine = sqlalchemy.create_engine('mysql+mysqlconnector://root:mysql@localhost:3306/sakila', echo=False)\n        data = pandas.read_sql(\n            'SELECT address_id, address, address2, district, city.city as city,postal_code,phone,location,address.last_update as last_update FROM address LEFT JOIN city ON address.city_id = city.city_id',\n            engine)\n        self.address_data = data\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/provider/AddressDataProvider.py b/provider/AddressDataProvider.py
+--- a/provider/AddressDataProvider.py	(revision a7c9698949113c140cb6c690135d58314c9c86fe)
++++ b/provider/AddressDataProvider.py	(date 1726139049851)
+@@ -18,6 +18,6 @@
+     ):
+         engine = sqlalchemy.create_engine('mysql+mysqlconnector://root:mysql@localhost:3306/sakila', echo=False)
+         data = pandas.read_sql(
+-            'SELECT address_id, address, address2, district, city.city as city,postal_code,phone,location,address.last_update as last_update FROM address LEFT JOIN city ON address.city_id = city.city_id',
++            'SELECT address_id, address, address2, district, city.city as city,postal_code,phone,St_AsText(location) as location,address.last_update as last_update FROM address LEFT JOIN city ON address.city_id = city.city_id',
+             engine)
+         self.address_data = data
+Index: requirements.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>altair==5.4.1\nattrs==24.2.0\nblinker==1.8.2\ncachetools==5.5.0\ncertifi==2024.8.30\ncharset-normalizer==3.3.2\nclick==8.1.7\ngitdb==4.0.11\nGitPython==3.1.43\nidna==3.8\nJinja2==3.1.4\njsonschema==4.23.0\njsonschema-specifications==2023.12.1\nmarkdown-it-py==3.0.0\nMarkupSafe==2.1.5\nmdurl==0.1.2\nmysql-connector-python==9.0.0\nnarwhals==1.6.2\nnumpy==2.0.2\npackaging==24.1\npandas==2.2.2\npillow==10.4.0\nprotobuf==5.28.0\npyarrow==17.0.0\npydeck==0.9.1\nPygments==2.18.0\npyodbc==5.1.0\npython-dateutil==2.9.0.post0\npytz==2024.1\nreferencing==0.35.1\nrequests==2.32.3\nrich==13.8.0\nrpds-py==0.20.0\nsix==1.16.0\nsmmap==5.0.1\nSQLAlchemy==2.0.34\nstreamlit==1.38.0\ntenacity==8.5.0\ntoml==0.10.2\ntornado==6.4.1\ntyping_extensions==4.12.2\ntzdata==2024.1\nurllib3==2.2.2\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/requirements.txt b/requirements.txt
+--- a/requirements.txt	(revision a7c9698949113c140cb6c690135d58314c9c86fe)
++++ b/requirements.txt	(date 1726131469389)
+@@ -1,4 +1,5 @@
+ altair==5.4.1
++annotated-types==0.7.0
+ attrs==24.2.0
+ blinker==1.8.2
+ cachetools==5.5.0
+@@ -22,6 +23,8 @@
+ pillow==10.4.0
+ protobuf==5.28.0
+ pyarrow==17.0.0
++pydantic==2.9.1
++pydantic_core==2.23.3
+ pydeck==0.9.1
+ Pygments==2.18.0
+ pyodbc==5.1.0
+Index: .idea/dataSources.local.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"dataSourceStorageLocal\" created-in=\"PY-242.21829.153\">\n    <data-source name=\"@localhost\" uuid=\"4ad3926b-e622-43e3-a5d8-b28cfe0fa386\">\n      <database-info product=\"MySQL\" version=\"9.0.1\" jdbc-version=\"4.2\" driver-name=\"MySQL Connector/J\" driver-version=\"mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)\" dbms=\"MYSQL\" exact-version=\"9.0.1\" exact-driver-version=\"8.2\">\n        <extra-name-characters>#@</extra-name-characters>\n        <identifier-quote-string>`</identifier-quote-string>\n        <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>\n      </database-info>\n      <case-sensitivity plain-identifiers=\"exact\" quoted-identifiers=\"exact\" />\n      <secret-storage>master_key</secret-storage>\n      <user-name>root</user-name>\n      <schema-mapping>\n        <introspection-scope>\n          <node kind=\"schema\">\n            <name qname=\"@\" />\n            <name qname=\"sakila\" />\n          </node>\n        </introspection-scope>\n      </schema-mapping>\n    </data-source>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.local.xml b/.idea/dataSources.local.xml
+--- a/.idea/dataSources.local.xml	(revision a7c9698949113c140cb6c690135d58314c9c86fe)
++++ b/.idea/dataSources.local.xml	(date 1725889087181)
+@@ -5,7 +5,6 @@
+       <database-info product="MySQL" version="9.0.1" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="9.0.1" exact-driver-version="8.2">
+         <extra-name-characters>#@</extra-name-characters>
+         <identifier-quote-string>`</identifier-quote-string>
+-        <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
+       </database-info>
+       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+       <secret-storage>master_key</secret-storage>
+Index: pages/Pydantic.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pages/Pydantic.py b/pages/Pydantic.py
+new file mode 100644
+--- /dev/null	(date 1726138828786)
++++ b/pages/Pydantic.py	(date 1726138828786)
+@@ -0,0 +1,37 @@
++import json
++from json import detect_encoding
++
++import streamlit
++from charset_normalizer import from_bytes
++from numpy.random import geometric
++from pandas.api.types import infer_dtype
++
++from model.AddressModel import AddressModel
++from provider.AddressDataProvider import AddressDataProvider
++
++
++class Pydantic:
++    def __init__(self):
++        self.initialize_streamlit()
++
++    def initialize_streamlit(self):
++        data_provider = AddressDataProvider()
++        streamlit.set_page_config(page_title="Pydantic Address JSON by ID")
++        streamlit.title('Pydantic Address JSON by ID')
++
++        input_id = streamlit.text_input('ID', value=1)
++        data_frame = data_provider.address_data
++
++        address_data = data_frame.loc[data_frame[data_provider.COLUMN_ID] == int(input_id)]
++
++        if not address_data.empty:
++            address_model = AddressModel(**address_data.iloc[0].to_dict())
++            streamlit.write('Raw Model:')
++            streamlit.write(address_model)
++            streamlit.write('Json Serialized Model:')
++            streamlit.write(address_model.model_dump_json())
++        else:
++            streamlit.write("Empty nothing found")
++
++
++main = Pydantic()
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"63382e5d-8d50-42b3-b199-1a78b14707b1\" name=\"Changes\" comment=\"It lives\">\n      <change afterPath=\"$PROJECT_DIR$/.gitignore\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/README.md\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/README.md\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"HighlightingSettingsPerFile\">\n    <setting file=\"file://$PROJECT_DIR$/.venv/lib/python3.9/site-packages/streamlit/__init__.py\" root0=\"SKIP_INSPECTION\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 0\n}</component>\n  <component name=\"ProjectId\" id=\"2lglQei7qXQ3hTTS92GKaUaI5Hv\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;Python.AddressDataProvider.executor&quot;: &quot;Run&quot;,\n    &quot;Python.OrganizationDataProvider.executor&quot;: &quot;Run&quot;,\n    &quot;Python.OrganizationFilter.executor&quot;: &quot;Run&quot;,\n    &quot;Python.SqlSourceTable.executor&quot;: &quot;Run&quot;,\n    &quot;Python.main.executor&quot;: &quot;Run&quot;,\n    &quot;Python.main_steamlit.executor&quot;: &quot;Run&quot;,\n    &quot;Python.test.executor&quot;: &quot;Run&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\n    &quot;last_opened_file_path&quot;: &quot;/Users/marmolada/PycharmProjects/organizations-csv-reader/filter/organization&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  },\n  &quot;keyToStringList&quot;: {\n    &quot;DatabaseDriversLRU&quot;: [\n      &quot;mysql&quot;\n    ]\n  }\n}</component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/filter/organization\" />\n      <recent name=\"$PROJECT_DIR$\" />\n    </key>\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$\" />\n      <recent name=\"$PROJECT_DIR$/.docker\" />\n    </key>\n  </component>\n  <component name=\"RunManager\" selected=\"Python.main_steamlit\">\n    <configuration name=\"main\" type=\"PythonConfigurationType\" factoryName=\"Python\" nameIsGenerated=\"true\">\n      <module name=\"organizations-csv-reader\" />\n      <option name=\"ENV_FILES\" value=\"\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"SDK_NAME\" value=\"Python 3.9 (organizations-csv-reader)\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/main.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"main_steamlit\" type=\"PythonConfigurationType\" factoryName=\"Python\">\n      <module name=\"organizations-csv-reader\" />\n      <option name=\"ENV_FILES\" value=\"\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"SDK_NAME\" value=\"Python 3.9 (organizations-csv-reader)\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"streamlit\" />\n      <option name=\"PARAMETERS\" value=\"run $PROJECT_DIR$/main.py\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"true\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <list>\n      <item itemvalue=\"Python.main\" />\n      <item itemvalue=\"Python.main_steamlit\" />\n    </list>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-PY-242.21829.153\" />\n        <option value=\"bundled-python-sdk-464836ebc622-b74155a9e76b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.21829.153\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"63382e5d-8d50-42b3-b199-1a78b14707b1\" name=\"Changes\" comment=\"\" />\n      <created>1725609586207</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1725609586207</updated>\n      <workItem from=\"1725610277749\" duration=\"19271000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"It lives\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1725630370601</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1725630370601</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"2\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"It lives\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"It lives\" />\n  </component>\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\n    <SUITE FILE_PATH=\"coverage/organizations_csv_reader$OrganizationDataProvider.coverage\" NAME=\"OrganizationDataProvider Coverage Results\" MODIFIED=\"1725611642394\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/provider\" />\n    <SUITE FILE_PATH=\"coverage/organizations_csv_reader$test.coverage\" NAME=\"test Coverage Results\" MODIFIED=\"1725625728131\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n    <SUITE FILE_PATH=\"coverage/organizations_csv_reader$AddressDataProvider.coverage\" NAME=\"AddressDataProvider Coverage Results\" MODIFIED=\"1725626808485\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/provider\" />\n    <SUITE FILE_PATH=\"coverage/organizations_csv_reader$main_steamlit.coverage\" NAME=\"main_steamlit Coverage Results\" MODIFIED=\"1725629686207\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"\" />\n    <SUITE FILE_PATH=\"coverage/organizations_csv_reader$main.coverage\" NAME=\"main Coverage Results\" MODIFIED=\"1725613686734\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"\" />\n    <SUITE FILE_PATH=\"coverage/organizations_csv_reader$OrganizationFilter.coverage\" NAME=\"OrganizationFilter Coverage Results\" MODIFIED=\"1725611714678\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/filter/organization\" />\n    <SUITE FILE_PATH=\"coverage/organizations_csv_reader$SqlSourceTable.coverage\" NAME=\"SqlSourceTable Coverage Results\" MODIFIED=\"1725626820274\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/pages\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision a7c9698949113c140cb6c690135d58314c9c86fe)
++++ b/.idea/workspace.xml	(date 1726139676220)
+@@ -4,10 +4,13 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="63382e5d-8d50-42b3-b199-1a78b14707b1" name="Changes" comment="It lives">
+-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
++    <list default="true" id="63382e5d-8d50-42b3-b199-1a78b14707b1" name="Changes" comment="Basic pydantic usage">
++      <change afterPath="$PROJECT_DIR$/model/AddressModel.py" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/pages/Pydantic.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/provider/AddressDataProvider.py" beforeDir="false" afterPath="$PROJECT_DIR$/provider/AddressDataProvider.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -23,7 +26,20 @@
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="UPDATE_TYPE" value="REBASE" />
+   </component>
++  <component name="GitHubPullRequestSearchHistory">{
++  &quot;lastFilter&quot;: {
++    &quot;state&quot;: &quot;OPEN&quot;,
++    &quot;assignee&quot;: &quot;Nykilor&quot;
++  }
++}</component>
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;git@github.com:Nykilor/python-csv-sql.git&quot;,
++    &quot;accountId&quot;: &quot;1ca396cb-5e6c-4207-83ab-49661678b5b9&quot;
++  }
++}</component>
+   <component name="HighlightingSettingsPerFile">
+     <setting file="file://$PROJECT_DIR$/.venv/lib/python3.9/site-packages/streamlit/__init__.py" root0="SKIP_INSPECTION" />
+   </component>
+@@ -36,33 +52,35 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;Python.AddressDataProvider.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.OrganizationDataProvider.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.OrganizationFilter.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.SqlSourceTable.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.main_steamlit.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;/Users/marmolada/PycharmProjects/organizations-csv-reader/filter/organization&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "Python.AddressDataProvider.executor": "Run",
++    "Python.AddressModel.executor": "Run",
++    "Python.OrganizationDataProvider.executor": "Run",
++    "Python.OrganizationFilter.executor": "Run",
++    "Python.Pydantic.executor": "Run",
++    "Python.SqlSourceTable.executor": "Run",
++    "Python.main.executor": "Run",
++    "Python.main_steamlit.executor": "Run",
++    "Python.test.executor": "Run",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "git-widget-placeholder": "main",
++    "last_opened_file_path": "/Users/marmolada/PycharmProjects/organizations-csv-reader/filter/organization",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
++    "vue.rearranger.settings.migration": "true"
+   },
+-  &quot;keyToStringList&quot;: {
+-    &quot;DatabaseDriversLRU&quot;: [
+-      &quot;mysql&quot;
++  "keyToStringList": {
++    "DatabaseDriversLRU": [
++      "mysql"
+     ]
+   }
+-}</component>
++}]]></component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="$PROJECT_DIR$/filter/organization" />
+@@ -143,7 +161,10 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1725609586207</updated>
+-      <workItem from="1725610277749" duration="19271000" />
++      <workItem from="1725610277749" duration="20696000" />
++      <workItem from="1725888713629" duration="973000" />
++      <workItem from="1726056905661" duration="1235000" />
++      <workItem from="1726131438018" duration="8225000" />
+     </task>
+     <task id="LOCAL-00001" summary="It lives">
+       <option name="closed" value="true" />
+@@ -153,15 +174,41 @@
+       <option name="project" value="LOCAL" />
+       <updated>1725630370601</updated>
+     </task>
+-    <option name="localTasksCounter" value="2" />
++    <task id="LOCAL-00002" summary="Comments">
++      <option name="closed" value="true" />
++      <created>1725630528927</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1725630528927</updated>
++    </task>
++    <task id="LOCAL-00003" summary="Basic pydantic usage">
++      <option name="closed" value="true" />
++      <created>1726139179026</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1726139179026</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
++    <option name="OPEN_GENERIC_TABS">
++      <map>
++        <entry key="615faf4f-0437-435c-88f3-dc388e009e73" value="TOOL_WINDOW" />
++      </map>
++    </option>
+     <option name="TAB_STATES">
+       <map>
++        <entry key="615faf4f-0437-435c-88f3-dc388e009e73">
++          <value>
++            <State />
++          </value>
++        </entry>
+         <entry key="MAIN">
+           <value>
+             <State />
+@@ -172,14 +219,18 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="It lives" />
+-    <option name="LAST_COMMIT_MESSAGE" value="It lives" />
++    <MESSAGE value="Comments" />
++    <MESSAGE value="Basic pydantic usage" />
++    <option name="LAST_COMMIT_MESSAGE" value="Basic pydantic usage" />
+   </component>
+   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+     <SUITE FILE_PATH="coverage/organizations_csv_reader$OrganizationDataProvider.coverage" NAME="OrganizationDataProvider Coverage Results" MODIFIED="1725611642394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/provider" />
+     <SUITE FILE_PATH="coverage/organizations_csv_reader$test.coverage" NAME="test Coverage Results" MODIFIED="1725625728131" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+     <SUITE FILE_PATH="coverage/organizations_csv_reader$AddressDataProvider.coverage" NAME="AddressDataProvider Coverage Results" MODIFIED="1725626808485" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/provider" />
+-    <SUITE FILE_PATH="coverage/organizations_csv_reader$main_steamlit.coverage" NAME="main_steamlit Coverage Results" MODIFIED="1725629686207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
++    <SUITE FILE_PATH="coverage/organizations_csv_reader$main_steamlit.coverage" NAME="main_steamlit Coverage Results" MODIFIED="1726139049859" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+     <SUITE FILE_PATH="coverage/organizations_csv_reader$main.coverage" NAME="main Coverage Results" MODIFIED="1725613686734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
++    <SUITE FILE_PATH="coverage/organizations_csv_reader$Pydantic.coverage" NAME="Pydantic Coverage Results" MODIFIED="1726132889385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pages" />
++    <SUITE FILE_PATH="coverage/organizations_csv_reader$AddressModel.coverage" NAME="AddressModel Coverage Results" MODIFIED="1726132887879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+     <SUITE FILE_PATH="coverage/organizations_csv_reader$OrganizationFilter.coverage" NAME="OrganizationFilter Coverage Results" MODIFIED="1725611714678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/filter/organization" />
+     <SUITE FILE_PATH="coverage/organizations_csv_reader$SqlSourceTable.coverage" NAME="SqlSourceTable Coverage Results" MODIFIED="1725626820274" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pages" />
+   </component>
+Index: model/AddressModel.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/model/AddressModel.py b/model/AddressModel.py
+new file mode 100644
+--- /dev/null	(date 1726138654318)
++++ b/model/AddressModel.py	(date 1726138654318)
+@@ -0,0 +1,25 @@
++import json
++from typing import Optional, Annotated
++
++from charset_normalizer import from_bytes
++from pydantic import BaseModel, PlainSerializer
++from pyodbc import Timestamp
++
++CustomTimeStamp = Annotated[
++    Timestamp, PlainSerializer(lambda x: x.isoformat(), return_type=str)
++]
++
++LocationType = Annotated[
++    Optional[bytes], PlainSerializer(lambda x: str(x), return_type=str)
++]
++
++class AddressModel(BaseModel):
++    address_id: int
++    address: Optional[str] = None
++    address2: Optional[str] = None
++    district: Optional[str] = None
++    city: Optional[str] = None
++    postal_code: Optional[str] = None
++    phone: Optional[str] = None
++    location: LocationType
++    last_update: CustomTimeStamp

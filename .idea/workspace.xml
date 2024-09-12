@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63382e5d-8d50-42b3-b199-1a78b14707b1" name="Changes" comment="It lives">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="63382e5d-8d50-42b3-b199-1a78b14707b1" name="Changes" comment="Basic pydantic usage">
+      <change afterPath="$PROJECT_DIR$/model/AddressModel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/Pydantic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/provider/AddressDataProvider.py" beforeDir="false" afterPath="$PROJECT_DIR$/provider/AddressDataProvider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +26,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Nykilor&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:Nykilor/python-csv-sql.git&quot;,
+    &quot;accountId&quot;: &quot;1ca396cb-5e6c-4207-83ab-49661678b5b9&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/.venv/lib/python3.9/site-packages/streamlit/__init__.py" root0="SKIP_INSPECTION" />
   </component>
@@ -36,33 +52,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.AddressDataProvider.executor&quot;: &quot;Run&quot;,
-    &quot;Python.OrganizationDataProvider.executor&quot;: &quot;Run&quot;,
-    &quot;Python.OrganizationFilter.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SqlSourceTable.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_steamlit.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/marmolada/PycharmProjects/organizations-csv-reader/filter/organization&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.AddressDataProvider.executor": "Run",
+    "Python.AddressModel.executor": "Run",
+    "Python.OrganizationDataProvider.executor": "Run",
+    "Python.OrganizationFilter.executor": "Run",
+    "Python.Pydantic.executor": "Run",
+    "Python.SqlSourceTable.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.main_steamlit.executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/marmolada/PycharmProjects/organizations-csv-reader/filter/organization",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/filter/organization" />
@@ -143,7 +161,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1725609586207</updated>
-      <workItem from="1725610277749" duration="19271000" />
+      <workItem from="1725610277749" duration="20696000" />
+      <workItem from="1725888713629" duration="973000" />
+      <workItem from="1726056905661" duration="1235000" />
+      <workItem from="1726131438018" duration="8225000" />
     </task>
     <task id="LOCAL-00001" summary="It lives">
       <option name="closed" value="true" />
@@ -153,15 +174,41 @@
       <option name="project" value="LOCAL" />
       <updated>1725630370601</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Comments">
+      <option name="closed" value="true" />
+      <created>1725630528927</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1725630528927</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Basic pydantic usage">
+      <option name="closed" value="true" />
+      <created>1726139179026</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1726139179026</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="615faf4f-0437-435c-88f3-dc388e009e73" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
+        <entry key="615faf4f-0437-435c-88f3-dc388e009e73">
+          <value>
+            <State />
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State />
@@ -172,14 +219,18 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="It lives" />
-    <option name="LAST_COMMIT_MESSAGE" value="It lives" />
+    <MESSAGE value="Comments" />
+    <MESSAGE value="Basic pydantic usage" />
+    <option name="LAST_COMMIT_MESSAGE" value="Basic pydantic usage" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/organizations_csv_reader$OrganizationDataProvider.coverage" NAME="OrganizationDataProvider Coverage Results" MODIFIED="1725611642394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/provider" />
     <SUITE FILE_PATH="coverage/organizations_csv_reader$test.coverage" NAME="test Coverage Results" MODIFIED="1725625728131" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/organizations_csv_reader$AddressDataProvider.coverage" NAME="AddressDataProvider Coverage Results" MODIFIED="1725626808485" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/provider" />
-    <SUITE FILE_PATH="coverage/organizations_csv_reader$main_steamlit.coverage" NAME="main_steamlit Coverage Results" MODIFIED="1725629686207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/organizations_csv_reader$main_steamlit.coverage" NAME="main_steamlit Coverage Results" MODIFIED="1726139049859" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/organizations_csv_reader$main.coverage" NAME="main Coverage Results" MODIFIED="1725613686734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/organizations_csv_reader$Pydantic.coverage" NAME="Pydantic Coverage Results" MODIFIED="1726132889385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pages" />
+    <SUITE FILE_PATH="coverage/organizations_csv_reader$AddressModel.coverage" NAME="AddressModel Coverage Results" MODIFIED="1726132887879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
     <SUITE FILE_PATH="coverage/organizations_csv_reader$OrganizationFilter.coverage" NAME="OrganizationFilter Coverage Results" MODIFIED="1725611714678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/filter/organization" />
     <SUITE FILE_PATH="coverage/organizations_csv_reader$SqlSourceTable.coverage" NAME="SqlSourceTable Coverage Results" MODIFIED="1725626820274" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pages" />
   </component>

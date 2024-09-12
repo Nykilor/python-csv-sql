@@ -18,6 +18,6 @@ class AddressDataProvider:
     ):
         engine = sqlalchemy.create_engine('mysql+mysqlconnector://root:mysql@localhost:3306/sakila', echo=False)
         data = pandas.read_sql(
-            'SELECT address_id, address, address2, district, city.city as city,postal_code,phone,location,address.last_update as last_update FROM address LEFT JOIN city ON address.city_id = city.city_id',
+            'SELECT address_id, address, address2, district, city.city as city,postal_code,phone,St_AsText(location) as location,address.last_update as last_update FROM address LEFT JOIN city ON address.city_id = city.city_id',
             engine)
         self.address_data = data
